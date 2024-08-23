@@ -18,6 +18,9 @@ public class Cinema {
         cinema.bookSeat();
     }
 
+    /**
+     * get row and seat numbers of the theatres from user
+     */
     void userInput() {
         do {
             System.out.println("Enter the number of rows");
@@ -70,7 +73,7 @@ public class Cinema {
     }
 
     void bookSeat() {
-        System.out.println("\n====Seat Booking====");
+        System.out.println("\n====SEAT BOOKING====");
 
         int r, s;
 
