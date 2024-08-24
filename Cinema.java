@@ -14,8 +14,8 @@ public class Cinema {
     public static void main(String[] args) {
         Cinema cinema = new Cinema();
 
-        cinema.seatingArrangement();
-        cinema.bookSeat();
+        cinema.userInput();
+//        cinema.bookSeat();
     }
 
     /**
@@ -23,7 +23,11 @@ public class Cinema {
      */
     void userInput() {
         do {
-            System.out.println("Enter the number of rows");
+            System.out.println("""
+                    WELCOME TO CINEMA!!!
+                    DEFINE THE NUMBER OF ROWS AND SEATS AT YOUR OWN!
+                                        
+                    Enter the number of rows""");
             row = sc.nextInt();
             if (row > 9)
                 System.out.println("MAXIMUM NUMBER OF ROWS CAN BE 9 OR LESS");
@@ -31,6 +35,9 @@ public class Cinema {
 
         System.out.println("Enter the number of columns");
         column = sc.nextInt();
+
+        seatingArrangement();
+        callMenu();
     }
 
     void printHeader() {
@@ -59,8 +66,6 @@ public class Cinema {
     }
 
     void seatingArrangement() {
-        userInput();
-
         seats = new char[row][column];
 
         for (int i = 0; i < row; i++) {
@@ -68,8 +73,6 @@ public class Cinema {
                 seats[i][j] = 'S';
             }
         }
-
-        printSeats();
     }
 
     void bookSeat() {
@@ -93,6 +96,8 @@ public class Cinema {
             s = sc.nextInt();
             if (s <= 0 || s > column) {
                 System.out.println("WRONG INPUT: Entered column number is not matching. Maximum column count is " + column);
+            } else if (seats[r - 1][s - 1] == 'B') {
+                System.out.println("SORRY, THE SELECTED SEAT IS ALREADY BOOKED");
             } else {
                 break;
             }
@@ -105,14 +110,38 @@ public class Cinema {
         /**
          * ticket prices
          */
-        if (row * column < 60 ) {
+        if (row * column < 60) {
             System.out.println("Ticket Price: " + 10);
         } else {
-            if(r<row/2){
-                System.out.println("Ticket Price: " +10);
+            if (r < row / 2) {
+                System.out.println("Ticket Price: " + 10);
             } else {
                 System.out.println("Ticket Price: " + 8);
             }
         }
+    }
+
+    void callMenu() {
+        while (true) {
+            System.out.println("""
+
+                    1. Show the seats
+                    2. Buy a ticket
+                    0. Exit""");
+
+        int selection = sc.nextInt();
+        switch (selection) {
+            case 0:
+                System.exit(0);
+            case 1:
+                printSeats();
+                break;
+            case 2:
+                bookSeat();
+                break;
+            default:
+                System.out.println("WRONG SELECTION");
+        }
+    }
     }
 }
